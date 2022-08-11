@@ -1,10 +1,29 @@
 import random
 import time
 import os
+from getkey import getkey, keys
 
 level=1
 ls=[]
 input_number=[]
+def instructions():
+    print("Can you remember all the numbers?")
+    print("The goal of the game is to try to remember as much numbers as you can.")
+    print("The order of the numbers doesn't mather.")
+    print('enter the numbers seperated with a comma')
+    print(' for example: 32, 5, 99, 43')
+    print("try to repeat the numbers you see and level up.")
+    print("How far can you get?")
+    print()
+    print('Enter a nickname:')
+    nickname = input()
+    print()
+    print("Press Enter to get started")
+    key = getkey()
+    if key == keys.ENTER:
+        print("upressed enter")
+
+
 
 def generate_random_number(): 
     """
@@ -17,8 +36,11 @@ def generate_random_number():
         ls.append(var)
     print(ls)
     print(f'level: {level}')
-    time.sleep(20)
-    os.system('clear')
+    if  key == keys.ENTER:
+        os.system('clear')
+    else:
+         time.sleep(20) 
+        os.system('clear')
     return level, ls
 
 def user_input():
@@ -58,7 +80,9 @@ def end_game():
     print("stop")
 
 def main():
+    instructions()
     generate_random_number()
     user_input()
     check_correct()
+   
 main()
