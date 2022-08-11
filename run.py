@@ -36,10 +36,11 @@ def generate_random_number():
         ls.append(var)
     print(ls)
     print(f'level: {level}')
+    key = getkey()
     if  key == keys.ENTER:
         os.system('clear')
     else:
-         time.sleep(20) 
+        time.sleep(20) 
         os.system('clear')
     return level, ls
 
@@ -59,6 +60,9 @@ def user_input():
             return input_number
         except NameError:
             print("not a number")
+        except SyntaxError:
+            print("did you use the right format?")
+            print(' ex. 32, 5, 99, 43')
         
     return guessed_numbers_int, ls
 
@@ -80,9 +84,12 @@ def end_game():
     print("stop")
 
 def main():
-    instructions()
     generate_random_number()
     user_input()
     check_correct()
    
-main()
+def startgame(): 
+     instructions()
+     main()
+
+startgame()
