@@ -37,18 +37,19 @@ def instructions():
     print("try to repeat the numbers you see and level up.")
     print("How far can you get?")
     print()
-    print('Enter a nickname:')
+    print('Enter a nickname and press ENTER')
+    print('nickname:',end="")
     global nickname
     while True: 
         try:    
             nickname = input()
             1/len(nickname)
             print(f'Welcome {nickname}')
-            time.sleep(5)
+            time.sleep(2)
             os.system('clear')
             return nickname
         except ZeroDivisionError:
-            print('please enter a nickname')
+            print('Please enter a nickname.')
     
 def generate_random_number(): 
     """
@@ -59,9 +60,9 @@ def generate_random_number():
     for i in range(level): 
         var = random.randint(1, 99)
         ls.append(var)
+    print("Wait for 20 seconds or press any key")
     print(f'level: {level}')
     print(ls)
-    print("Wait for 20 seconds or press any key")
     key = getkey()
     if  key == key:
         os.system('clear')
@@ -88,6 +89,7 @@ def user_input():
             print("not a number")
         except SyntaxError:
             print("did you use the right format?")
+            print("you can only use numbers and they should be seperated by a whitespace")
             print(' ex. 32 5 99 43')
         
     return guessed_numbers_int, ls
@@ -122,7 +124,8 @@ def score_update():
     score= SHEET.insert_row([nickname,level], index=2)
     SHEET.sort((2,'asc'))
     highscore_list=SHEET.get_values('A1:B11')
-    print(highscore_list)
+    for score in highscore_list:
+        print(score)
 
 def main():
     generate_random_number()
