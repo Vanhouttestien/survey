@@ -19,13 +19,6 @@ SHEET = GSPREAD_CLIENT.open('nummemory').worksheet('score')
 
 
 
-def score_update():
-    global nickname
-    global level
-    score= SHEET.insert_row([nickname,level], index=2)
-    SHEET.sort((2,'asc'))
-    highscore_list=SHEET.get_values('A1:B11')
-    print(highscore_list)
     
 
 #global variables
@@ -46,15 +39,17 @@ def instructions():
     print()
     print('Enter a nickname:')
     global nickname
-    nickname = input()
-    print()
-    print("Press Enter to get started")
-    key = getkey()
-    if key == keys.ENTER:
-        print("upressed enter")
-    return nickname
-
-
+    while True: 
+        try:    
+            nickname = input()
+            1/len(nickname)
+            print(f'Welcome {nickname}')
+            time.sleep(5)
+            os.system('clear')
+            return nickname
+        except ZeroDivisionError:
+            print('please enter a nickname')
+    
 def generate_random_number(): 
     """
     Print a random number and make it disappear after 20 seconds
@@ -66,9 +61,9 @@ def generate_random_number():
         ls.append(var)
     print(f'level: {level}')
     print(ls)
-    print("Wait for 20 seconds or press ENTER")
+    print("Wait for 20 seconds or press any key")
     key = getkey()
-    if  key == keys.ENTER:
+    if  key == key:
         os.system('clear')
     else:
         time.sleep(20) 
@@ -117,6 +112,17 @@ def end_game():
     print(f'the right answer was {ls}')
     print(f'You got till level {level}')
     score_update()
+
+def score_update():
+    """
+    Prints level and nickname to google sheets and prints the current top 10
+    """
+    global nickname
+    global level
+    score= SHEET.insert_row([nickname,level], index=2)
+    SHEET.sort((2,'asc'))
+    highscore_list=SHEET.get_values('A1:B11')
+    print(highscore_list)
 
 def main():
     generate_random_number()
