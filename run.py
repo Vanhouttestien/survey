@@ -4,6 +4,8 @@ import os
 from getkey import getkey, keys
 import gspread
 from google.oauth2.service_account import Credentials
+from rich import print
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -62,7 +64,9 @@ def generate_random_number():
         ls.append(var)
     print("Wait for 20 seconds or press any key")
     print(f'level: {level}')
-    print(ls)
+    print()
+    print('Numbers:')
+    print(*ls, sep = ',')
     key = getkey()
     if  key == key:
         os.system('clear')
@@ -78,15 +82,18 @@ def user_input():
     global input_number
     while True:
         try: 
-            print('enter the numbers seperated with a whitespace')
-            print(' ex. 32 5 99 43')
-            x = input('Enter the numbers:')
+            print('Have you remembered them all?')
+            print()
+            print()
+            print('Enter the numbers:',end="")
+            x = input()
             guessed_numbers = (x.strip()).split(" ")
             guessed_numbers_int = [eval(i) for i in guessed_numbers]  # convert list numbers to list of strings https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
             input_number = guessed_numbers_int
             return input_number
         except NameError:
             print("not a number")
+            print(' sperate the numbers by a whitespace: ex. 32 5 99 43')
         except SyntaxError:
             print("did you use the right format?")
             print("you can only use numbers and they should be seperated by a whitespace")
@@ -123,9 +130,9 @@ def score_update():
     global level
     score= SHEET.insert_row([nickname,level], index=2)
     SHEET.sort((2,'des'))
-    highscore_list=SHEET.get_values('A1:B11')
-    for score in highscore_list:
-        print(score)
+    highscore_list=SHEET.get_values('A2:B11')
+    col_names = ["NAME", "LEVEL"]
+    print(tabulate(highscore_list, headers=col_names))
 
 def main():
     generate_random_number()
