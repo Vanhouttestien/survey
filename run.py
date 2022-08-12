@@ -122,7 +122,7 @@ def score_update():
     global nickname
     global level
     score= SHEET.insert_row([nickname,level], index=2)
-    SHEET.sort((2,'asc'))
+    SHEET.sort((2,'des'))
     highscore_list=SHEET.get_values('A1:B11')
     for score in highscore_list:
         print(score)
