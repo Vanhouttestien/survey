@@ -4,7 +4,6 @@ import os
 from getkey import getkey, keys
 import gspread
 from google.oauth2.service_account import Credentials
-from rich import print
 from tabulate import tabulate
 
 SCOPE = [
@@ -102,6 +101,11 @@ def user_input():
     return guessed_numbers_int, ls
 
 def check_correct():
+    """
+    Checks if the input number is the same as the printed number. 
+    When it is the same you go a level up and the screen gets cleared. 
+    otherwise you go to endgame function.
+    """
     global level
     global input_number
     global ls
@@ -117,7 +121,7 @@ def check_correct():
         
 
 def end_game():
-    print("Wrong: you lost")
+    print("You gave the wrong answer")
     print(f'the right answer was {ls}')
     print(f'You got till level {level}')
     score_update()
@@ -130,8 +134,8 @@ def score_update():
     global level
     score= SHEET.insert_row([nickname,level], index=2)
     SHEET.sort((2,'des'))
-    highscore_list=SHEET.get_values('A2:B11')
-    col_names = ["NAME", "LEVEL"]
+    highscore_list=SHEET.get_values('A2:B11')       #code for making a table: https://www.statology.org/create-table-in-python/
+    col_names = ["NAME", "LEVEL"]  
     print(tabulate(highscore_list, headers=col_names))
 
 def main():
