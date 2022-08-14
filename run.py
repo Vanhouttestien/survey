@@ -66,10 +66,13 @@ def instructions():
 
     print()
     
-def nickname():
+def nickname_val():
+    """
+    functions asks user to input a nickname and checks if the string is not empty
+    """
+    global nickname
     print('Enter a nickname and press ENTER to get started')
     print(Fore.BLUE+'nickname:',end="")
-    global nickname
     while True: 
         try:    
             nickname = input()
@@ -77,10 +80,9 @@ def nickname():
             print(Fore.MAGENTA + f'Welcome {nickname}')
             time.sleep(2)
             os.system('clear')
-            return nickname
+            return nickname    
         except ZeroDivisionError:
             print(Fore.RED + 'Please enter a nickname.')
-    main()
 
 def times_up():
     os.system('clear')
@@ -217,7 +219,7 @@ def main():
    
 def startgame(): 
      start_menu()
-     nickname()
+     nickname_val()
      main()
 
 startgame()
