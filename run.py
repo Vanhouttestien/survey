@@ -8,6 +8,8 @@ from tabulate import tabulate
 from colorama import init
 from colorama import Fore, Back, Style
 from pyfiglet import Figlet
+import sys
+from threading import Timer
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -20,50 +22,79 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('nummemory').worksheet('score')
 
-
-
-
-    
-
 #global variables
 level=1
 ls=[]
 input_number=[]
 nickname= ""
 
+def start_menu():
+    custom_fig = Figlet(font='computer')    # code from https://www.devdungeon.com/content/create-ascii-art-text-banners-python
+    print(custom_fig.renderText('                            Nummory'))
+    print('')
+    print('Press i to see the instructions')
+    print('Press s to start the game')
+    key = getkey()
+    if key == keys.I:
+        instructions()
+    elif key == keys.S:
+        os.system('clear')
+
+def typingPrint(text):
+  for character in text:
+    sys.stdout.write(character)
+    sys.stdout.flush()
+    time.sleep(0.05)
 
 def instructions():
-    custom_fig = Figlet(font='computer')    # code from https://www.devdungeon.com/content/create-ascii-art-text-banners-python
-    print(custom_fig.renderText('Nummory'))
-    print("Can you remember all the numbers?")
-    print("The goal of the game is to try to remember as much numbers as you can.")
-    print("The order of the numbers doesn't mather.")
-    print('Enter the numbers seperated with whitespace')
-    print(Fore.GREEN + 'For example: 32 5 99 43')
-    print(Fore.WHITE + "Try to repeat all the numbers you see and level up.")
-    print("How far can you get?")
+    os.system('clear')
+    typingPrint("""
+    Can you remember all the numbers?
+    The goal of the game is to try to remember as much numbers as you can.
+    Game: 
+    1. You get to see a list of numbers 
+    2. you have 20 seconds to try and memorize the numbers
+    3. try to type all numbers
+       -Enter the numbers seperated with whitespace
+       -the order is not important 
+       -For example: 32 5 99 43 is the same as 5 99 32 43
+    4. If you have all the numbers correct you go a level up and get a number more. 
+    
+    How far can you get?
+    Can you break the highscore? 
+    """)
+
     print()
-    print('Enter a nickname and press ENTER')
+    
+def nickname():
+    print('Enter a nickname and press ENTER to get started')
     print(Fore.BLUE+'nickname:',end="")
     global nickname
     while True: 
         try:    
             nickname = input()
             1/len(nickname)
-            print(Fore.GREEN + f'Welcome {nickname}')
+            print(Fore.MAGENTA + f'Welcome {nickname}')
             time.sleep(2)
-
             os.system('clear')
             return nickname
         except ZeroDivisionError:
             print(Fore.RED + 'Please enter a nickname.')
-    
+    main()
+
+def times_up():
+    os.system('clear')
+    print("Your time is up!")
+    print("Press a key to continue.")
+
 def generate_random_number(): 
     """
     Print a random number and make it disappear after 20 seconds
     """
     global level
     global ls
+    timer = 5
+    os.system('clear')
     for i in range(level): 
         var = random.randint(1, 99)
         ls.append(var)
@@ -71,20 +102,22 @@ def generate_random_number():
     print("Wait for 20 seconds or press any key")
     print(f'level: {level}')
     print()
-    print(Fore.BLUE + 'Numbers:')
-    print(*ls, sep = ',')
+    print(Style.BRIGHT+'Numbers:')
+    print()
+    print(*ls, sep = '    ')
+    MyTimer = Timer(5, times_up)
+    MyTimer.start()
     key = getkey()
-    if  key == key:
-        os.system('clear')
-    else:
-        time.sleep(20) 
-        os.system('clear')
+    if key == key:
+        MyTimer.cancel()
+    os.system('clear')
     return level, ls
 
 def user_input():
     """
     User can fill the numbers in.
     """
+    os.system('clear')
     global input_number
     while True:
         try: 
@@ -129,10 +162,20 @@ def check_correct():
         
 
 def end_game():
+    os.system('clear')
     print(Fore.RED + "You gave the wrong answer")
     print(f'the right answer was {ls}')
     print(f'You got till level {level}')
     score_update()
+    print()
+    print('Would you like to try again?')
+    print('Yes: press y')
+    print('No: press n')
+    key = getkey()
+    if key == keys.Y:
+        main()
+    elif key == keys.N:
+        os.system('clear')
 
 def score_update():
     """
@@ -145,6 +188,10 @@ def score_update():
     highscore_list=SHEET.get_values('A2:B11')       #code for making a table: https://www.statology.org/create-table-in-python/
     col_names = ["NAME", "LEVEL"]  
     print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
+    # to ADD: print possition and if in top 10 add congrats message
+    # restart possibility 
+
+
 
 def main():
     generate_random_number()
@@ -152,7 +199,8 @@ def main():
     check_correct()
    
 def startgame(): 
-     instructions()
+     start_menu()
+     nickname()
      main()
 
 startgame()
