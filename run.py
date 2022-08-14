@@ -105,7 +105,7 @@ def generate_random_number():
     print(Style.BRIGHT+'Numbers:')
     print()
     print(*ls, sep = '    ')
-    MyTimer = Timer(5, times_up)
+    MyTimer = Timer(20, times_up)
     MyTimer.start()
     key = getkey()
     if key == key:
