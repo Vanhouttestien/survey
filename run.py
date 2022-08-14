@@ -162,20 +162,35 @@ def check_correct():
         
 
 def end_game():
+    global level
     os.system('clear')
     print(Fore.RED + "You gave the wrong answer")
     print(f'the right answer was {ls}')
     print(f'You got till level {level}')
     score_update()
     print()
+    print(f'level is {level}')
+    restart()
+
+
+def restart():
     print('Would you like to try again?')
     print('Yes: press y')
     print('No: press n')
     key = getkey()
+    def resetlevel():
+        global level
+        global ls
+        level=1
+        ls=[]
+        return level, ls
+    resetlevel()
     if key == keys.Y:
         main()
     elif key == keys.N:
-        os.system('clear')
+        sys.exit(0)
+    
+
 
 def score_update():
     """
@@ -186,6 +201,7 @@ def score_update():
     score= SHEET.insert_row([nickname,level], index=2)
     SHEET.sort((2,'des'))
     highscore_list=SHEET.get_values('A2:B11')       #code for making a table: https://www.statology.org/create-table-in-python/
+    print("highscore:")
     col_names = ["NAME", "LEVEL"]  
     print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
     # to ADD: print possition and if in top 10 add congrats message
@@ -197,6 +213,7 @@ def main():
     generate_random_number()
     user_input()
     check_correct()
+    
    
 def startgame(): 
      start_menu()
