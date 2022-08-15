@@ -5,8 +5,7 @@ from getkey import getkey, keys
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
-from colorama import init
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 from pyfiglet import Figlet
 import sys
 from threading import Timer
@@ -22,15 +21,21 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('nummemory').worksheet('score')
 
-#global variables
-level=1
-ls=[]
-input_number=[]
-nickname= ""
+# global variables
+level = 1
+ls = []
+input_number = []
+nickname = ""
+
 
 def start_menu():
-    custom_fig = Figlet(font='computer')    # code from https://www.devdungeon.com/content/create-ascii-art-text-banners-python
-    print(custom_fig.renderText('                            Nummory'))
+    """
+    start menu: Figlet with Nummmory 
+    and option to choose to start the game or read the instcurtcions
+    """
+    # code from https://www.devdungeon.com/content/create-ascii-art-text-banners-python
+    custom_fig = Figlet(font='computer')    
+    print(custom_fig.renderText('Nummory'))
     print('')
     print('Press i to see the instructions')
     print('Press s to start the game')
@@ -40,13 +45,20 @@ def start_menu():
     elif key == keys.S:
         os.system('clear')
 
-def typingPrint(text):
-  for character in text:
-    sys.stdout.write(character)
-    sys.stdout.flush()
-    time.sleep(0.05)
+
+def typingPrint(text):  # code from https://www.101computing.net/python-typing-text-effect/
+    """ 
+    typing effect
+    """
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
 
 def instructions():
+    """
+    prints the instruction in typing style
+    """
     os.system('clear')
     typingPrint("""
     Can you remember all the numbers?
@@ -66,16 +78,17 @@ def instructions():
 
     print()
     
+
 def nickname_val():
     """
     functions asks user to input a nickname and checks if the string is not empty
     """
     global nickname
     print('Enter a nickname and press ENTER to get started')
-    print(Fore.BLUE+'nickname:',end="")
+    print(Fore.BLUE+'nickname:', end="")
     while True: 
         try:    
-            nickname = input()
+            nickname = input("\n")
             1/len(nickname)
             print(Fore.MAGENTA + f'Welcome {nickname}')
             time.sleep(2)
@@ -84,10 +97,15 @@ def nickname_val():
         except ZeroDivisionError:
             print(Fore.RED + 'Please enter a nickname.')
 
+
 def times_up():
+    """ 
+    function for when the time to see the numbers is over.
+    """
     os.system('clear')
     print("Your time is up!")
     print("Press a key to continue.")
+
 
 def generate_random_number(): 
     """
@@ -106,7 +124,7 @@ def generate_random_number():
     print()
     print(Style.BRIGHT+'Numbers:')
     print()
-    print(*ls, sep = '    ')
+    print(*ls, sep = '          ')
     MyTimer = Timer(20, times_up)
     MyTimer.start()
     key = getkey()
@@ -115,9 +133,10 @@ def generate_random_number():
     os.system('clear')
     return level, ls
 
+
 def user_input():
     """
-    User can fill the numbers in.
+    User can fill the numbers in. The input get's validated. It should be a number seperated by whitespaces. 
     """
     os.system('clear')
     global input_number
@@ -127,21 +146,22 @@ def user_input():
             print('Have you remembered them all?')
             print()
             print()
-            print(Fore.BLUE+'Enter the numbers:',end="")
-            x = input()
+            print(Fore.BLUE+'Enter the numbers:', end="")
+            x = input("\n")
             guessed_numbers = (x.strip()).split(" ")
-            guessed_numbers_int = [eval(i) for i in guessed_numbers]  # convert list numbers to list of strings https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
+            # convert list numbers to list of strings https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
+            guessed_numbers_int = [eval(i) for i in guessed_numbers]
             input_number = guessed_numbers_int
             return input_number
         except NameError:
-            print(Fore.RED + "You didn't type a number")
-            print(Fore.RED +'seperate the numbers by a whitespace: ex. 32 5 99 43')
+            print(Fore.RED + "You can only use numbers")
         except SyntaxError:
             print(Fore.RED + "did you use the right format?")
             print(Fore.RED + "you can only use numbers and they should be seperated by a whitespace")
-            print(Fore.RED +' ex. 32 5 99 43')
+            print(Fore.RED + 'ex. 32 5 99 43')
         
     return guessed_numbers_int, ls
+
 
 def check_correct():
     """
@@ -154,72 +174,76 @@ def check_correct():
     global ls
     ls.sort()
     input_number.sort()
-    if input_number == ls: 
-        ls=[]
+    if input_number == ls:
+        ls = []
         level += 1
         os.system('clear')
         main()
     else: 
-        end_game()
+        return level, ls
         
 
 def end_game():
+    """ After a wrong answer tells the user what they got wrong and to with level they got."""
     global level
-    os.system('clear')
     print(Fore.RED + "You gave the wrong answer")
     print(f'the right answer was {ls}')
     print(f'You got till level {level}')
     score_update()
     print()
     print(f'level is {level}')
-    restart()
+    
+
+def score_update(): 
+    """ 
+    Prints level and nickname to google sheets and prints the current top 10
+    """
+    global nickname
+    global level
+    SHEET.insert_row([nickname, level], index=2)
+    SHEET.sort((2, 'des'))
+    # code for making a table: https://www.statology.org/create-table-in-python/
+    highscore_list = SHEET.get_values('A2:B11')       
+    print("highscore:")
+    col_names = ["NAME", "LEVEL"]  
+    print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
 
 
 def restart():
+    """ 
+    Give the user the oppurtunity to restart. 
+    if restart reset game.
+    """
     print('Would you like to try again?')
     print('Yes: press y')
     print('No: press n')
     key = getkey()
+
     def resetlevel():
         global level
         global ls
         level=1
         ls=[]
         return level, ls
+        
     resetlevel()
     if key == keys.Y:
         main()
     elif key == keys.N:
         sys.exit(0)
-    
 
-
-def score_update():
-    """
-    Prints level and nickname to google sheets and prints the current top 10
-    """
-    global nickname
-    global level
-    score= SHEET.insert_row([nickname,level], index=2)
-    SHEET.sort((2,'des'))
-    highscore_list=SHEET.get_values('A2:B11')       #code for making a table: https://www.statology.org/create-table-in-python/
-    print("highscore:")
-    col_names = ["NAME", "LEVEL"]  
-    print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
-    # to ADD: print possition and if in top 10 add congrats message
-    # restart possibility 
-
+def startgame():
+    start_menu()
+    nickname_val()
+    main()
 
 
 def main():
     generate_random_number()
     user_input()
     check_correct()
-    
-   
-def startgame(): 
-     start_menu()
-     nickname_val()
-     main()
+    end_game()
+    restart()
+
 
 startgame()
