@@ -40,10 +40,17 @@ def start_menu():
     print('Press i to see the instructions')
     print('Press s to start the game')
     key = getkey()
-    if key == keys.I:
-        instructions()
-    elif key == keys.S:
-        os.system('clear')
+    while True:
+        if key == keys.I:
+            instructions()
+            break
+        elif key == keys.S:
+            os.system('clear')
+            break
+        else:
+            os.system('clear')
+            startgame()
+
 
 
 def typingPrint(text):  # code from https://www.101computing.net/python-typing-text-effect/
@@ -181,7 +188,7 @@ def check_correct():
         main()
     else: 
         return level, ls
-        
+
 
 def end_game():
     """ After a wrong answer tells the user what they got wrong and to with level they got."""
@@ -208,6 +215,12 @@ def score_update():
     col_names = ["NAME", "LEVEL"]  
     print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
 
+def resetlevel():
+    global level
+    global ls
+    level=1
+    ls=[]
+    
 
 def restart():
     """ 
@@ -218,19 +231,17 @@ def restart():
     print('Yes: press y')
     print('No: press n')
     key = getkey()
-
-    def resetlevel():
-        global level
-        global ls
-        level=1
-        ls=[]
-        return level, ls
-        
     resetlevel()
-    if key == keys.Y:
-        main()
-    elif key == keys.N:
-        sys.exit(0)
+    while True: 
+        if key == keys.Y:
+             main()
+        elif key == keys.N:
+            sys.exit(0)
+        else: 
+            os.system("clear")
+            print('press y or n to proceed.')
+            restart()
+
 
 def startgame():
     start_menu()
@@ -246,4 +257,5 @@ def main():
     restart()
 
 
-startgame()
+# startgame()
+main()

@@ -1,31 +1,57 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Nummory 
 
-Welcome Stien Vanhoutte,
+Nummory is a memmory game, in wich you have to try to remember as much numbers as possible. It is developed with the intend to help people train their memory and and improve their brain. 
+<img src="" alt="Picture of webpage across different devices" width="600px">
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+##  Table of content
+- [How to play](#how-to-play)
+- [Technologies used](#technologies-used)
+- [Features](#features)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Credits](#credits)
 
-## Reminders
+## How to play
+### Frameworks, Libraries & Programs Used
+- [GitPod](https://gitpod.io/): Gitpod was used as development environment 
+- [GitHub](https://github.com/): Github was used to deploy the site and store it  
+- random
+- time: used for waiting after user gives nickname and typing effect 
+- os: celaring the screen 
+- getkey: used for the user to use a keypress to choose, or go to the next step
+- gspread: used for the high score list
+from google.oauth2.service_account import Credentials
+- tabulate: to create the high score
+- colorama: used to add color to the text
+-  pyfiglet: used for the ASCII Art Text Banner
+sys
+from threading import Timer
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## Features
+## Testing 
 
-## Creating the Heroku app
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
 
-1. `heroku/python`
-2. `heroku/nodejs`
+### Fixed bugs 
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+### Unfixed bugs
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## Deployment 
+This site was deployed with the code institute mock terminal for Heroku. 
 
-Connect your GitHub repository and deploy as normal.
+To deploy a page you first go to Heroku dashboard and click op new, create new app. 
+Than set the buildpacks to python and jsnode. 
+Lasly in the deploy tab connect the github repositiory and click on enable automatic deploy. 
 
-## Constraints
+The link can be found here: https://nummory.herokuapp.com/
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+## Credits
+### code
+- code for ASCII Art Text Banner: https://www.devdungeon.com/content/create-ascii-art-text-banners-python
+- code for the typing effect in the instructions: https://www.101computing.net/python-typing-text-effect/
+- code for converting list of string to integers: https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
+- code for building a table: https://www.statology.org/create-table-in-python/
+### support 
+Mentor Martina Terlevic for feedback
+Code institute tutor support, tutor Ger. For his time and effort to help try to resolve a bug
+Code institute template and mock terminal
