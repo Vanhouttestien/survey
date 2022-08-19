@@ -257,5 +257,4 @@ def main():
     restart()
 
 
-# startgame()
-main()
+startgame()
