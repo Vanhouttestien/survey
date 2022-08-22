@@ -71,7 +71,7 @@ def instructions():
     os.system('clear')
     typingPrint("""
     Can you remember all the numbers?
-    The goal of the game is to try to remember as much numbers as you can.
+    The goal of the game is to try to remember as many numbers as you can.
     Game:
     1. You get to see a list of numbers
     2. you have 20 seconds to try and memorize the numbers
@@ -80,7 +80,7 @@ def instructions():
        -the order is not important
        -For example: 32 5 99 43 is the same as 5 99 32 43
     4. If you have all the numbers correct you
-    go a level up and get a extra number.
+    go up one level and get a extra number.
 
     How far can you get?
     Can you break the highscore?
@@ -237,15 +237,16 @@ def restart():
     if restart reset game.
     """
     print('Would you like to try again?')
-    input_restart=input('write yes or no en press Enter:')
     resetlevel()
-    if input_restart.lower() == "y":
-        main()
-    elif input_restart.lower() == "n":
-        sys.exit(0)
-    else:
-        print ('enter y or n')
-
+    answer = None
+    while answer not in ("yes", "no"): 
+        answer = input("Enter yes or no: ") 
+        if answer.lower() == "yes": 
+             main()
+        elif answer.lower() == "no": 
+             sys.exit(0) 
+        else: 
+        	print("Please enter yes or no.") 
 
 def startgame():
     start_menu()
