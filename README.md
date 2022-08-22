@@ -49,35 +49,35 @@ Nummory is a memory game, in which you have to try to remember as many numbers a
 ### Start menu
 When the game starts you get a start menu and a ASCII Art Text Banner with the name of the game ‘Nummory’ made with numbers. You can make a choice between reading the instructions (press ‘i’) or start the game (press ‘s’). 
 
-<img src="images/startscreen.jpg" alt="Picture of startscreen" width="300px">
+<img src="images/startscreen.jpg" alt="Picture of startscreen" width="600px">
 
 ### Instructions
 The instructions use a typewriter effect so you can follow while reading line by line. It explains the how the game works. 
 
-<img src="images/instructions.jpg" alt="Picture of instructions" width="200px">
+<img src="images/instructions.jpg" alt="Picture of instructions" width="600px">
 
 ### nickname
 You have to give in a nickname to continue. It can not be empty. 
 
-<img src="images/nickname.jpg" alt="Picture of nickname input" width="200px">
+<img src="images/nickname.jpg" alt="Picture of nickname input" width="400px">
 
 ### Game
 When the game itself starts. You receive a menu with a random number (1-99). This is the number you need to remember. 
 
-<img src="images/game.jpg" alt="Picture of the number memorize phase" width="300px">
+<img src="images/game.jpg" alt="Picture of the number memorize phase" width="500px">
 
 You have 20 seconds to try to memorise. After this you get a time’s up message and you have to click to go to the next phase.
 
-<img src="images/timeup.jpg" alt="Picture of when the time is up" width="300px">
+<img src="images/timeup.jpg" alt="Picture of when the time is up" width="200px">
 
 Then you can enter the numbers. The order of the numbers is not important. The input gets an error if it is not separated by a whitespace or when it is not a number. When the answer is right you go up 1 level and have to remember an extra number. If it is wrong you get feedback. 
 
-<img src="images/input.jpg" alt=" " width="300px">
+<img src="images/input.jpg" alt=" " width="200px">
 
 ### Feedback 
 When you give a wrong answer the game ends and receive feedback with the right response. 
 
-<img src="wronganswer" alt="picture of feedback after wrong answer " width="300px">
+<img src="wronganswer" alt="picture of feedback after wrong answer " width="200px">
 
 ### High score 
 After the feedback at the end of the game you get the high score list. The high score list is linked with a google sheets and shows the 10 highest scores together with the used nickname.
@@ -92,9 +92,10 @@ At the end you get the option to restart. Press ‘y’ or ‘n’ to restart th
 ### other
 - Global variables where used in this game to make it easy to store and return the variables in different parts of the game. 
 	- 3 variables: 
-		- numbers: to store the random generated numbers in 
- 		- nickname: to store the chosen nickname in 
-		- level: to store the level in 
+		- NUMBERS: to store the random generated numbers in 
+ 		- NICKNAME: to store the chosen nickname in 
+		- LEVEL: to store the level in 
+        - INPUT_NUMBER: 
 
 ## Testing 
 ### Manual testing
@@ -103,7 +104,7 @@ At the end you get the option to restart. Press ‘y’ or ‘n’ to restart th
 - Invalid input was tested in the different input boxes.  
 - No errors in de pep8online.com validator. 
 
-<img src="images/pep8.jpg" alt="Picture of pep8 validator results" width="300px">
+<img src="images/pep8.jpg" alt="Picture of pep8 validator results" width="400px">
 
 ### Fixed bugs 
 - The start menu and restart option was not limited. When nothing or another key was clicked the program went to the following line.
