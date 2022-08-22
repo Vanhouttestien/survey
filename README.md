@@ -15,26 +15,30 @@ Nummory is a memmory game, in wich you have to try to remember as much numbers a
 ### Frameworks, Libraries & Programs Used
 - [GitPod](https://gitpod.io/): Gitpod was used as development environment 
 - [GitHub](https://github.com/): Github was used to deploy the site and store it  
-- random
+- random: for generating a random number
 - time: used for waiting after user gives nickname and typing effect 
 - os: celaring the screen 
 - getkey: used for the user to use a keypress to choose, or go to the next step
 - gspread: used for the high score list
-from google.oauth2.service_account import Credentials
+- google.oauth2.service_account: for high score list 
 - tabulate: to create the high score
 - colorama: used to add color to the text
--  pyfiglet: used for the ASCII Art Text Banner
-sys
-from threading import Timer
+- pyfiglet: used for the ASCII Art Text Banner
+- sys: used for the typewriting effect
+- Threading: used for the timer during the game that is cancelable. 
 
 ## Features
+
+
 ## Testing 
 
 
 
 ### Fixed bugs 
+- The start menu and restart option was not limited. When notting or another key was klicked the program went to the following line.  
 
 ### Unfixed bugs
+- when your time is up you still have to click to be able to give your answer. I wasn't able to get the key press canceled or mocked. So I added a line that you have to press a key to continue. 
 
 ## Deployment 
 This site was deployed with the code institute mock terminal for Heroku. 
@@ -52,6 +56,6 @@ The link can be found here: https://nummory.herokuapp.com/
 - code for converting list of string to integers: https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
 - code for building a table: https://www.statology.org/create-table-in-python/
 ### support 
-Mentor Martina Terlevic for feedback
-Code institute tutor support, tutor Ger. For his time and effort to help try to resolve a bug
-Code institute template and mock terminal
+- Mentor Martina Terlevic for feedback
+- Code institute tutor support, tutor Ger. For his time and effort to help try to resolve a bug
+- Code institute template and mock terminal

@@ -93,16 +93,17 @@ def nickname_val():
     global nickname
     print('Enter a nickname and press ENTER to get started')
     print(Fore.BLUE+'nickname:', end="")
-    while True: 
-        try:    
+    while True:     
             nickname = input("\n")
-            1/len(nickname)
+            if len(nickname) == 0: 
+                print(Fore.RED + 'Please enter a nickname.')
+                continue
             print(Fore.MAGENTA + f'Welcome {nickname}')
             time.sleep(2)
             os.system('clear')
             return nickname    
-        except ZeroDivisionError:
-            print(Fore.RED + 'Please enter a nickname.')
+        
+            
 
 
 def times_up():
@@ -120,7 +121,6 @@ def generate_random_number():
     """
     global level
     global ls
-    timer = 5
     os.system('clear')
     for i in range(level): 
         var = random.randint(1, 99)
@@ -135,8 +135,7 @@ def generate_random_number():
     MyTimer = Timer(20, times_up)
     MyTimer.start()
     key = getkey()
-    if key == key:
-        MyTimer.cancel()
+    MyTimer.cancel()
     os.system('clear')
     return level, ls
 
@@ -211,7 +210,7 @@ def score_update():
     SHEET.sort((2, 'des'))
     # code for making a table: https://www.statology.org/create-table-in-python/
     highscore_list = SHEET.get_values('A2:B11')       
-    print("highscore:")
+    print(Fore.LIGHTMAGENTA_EX + "Highscore:")
     col_names = ["NAME", "LEVEL"]  
     print(Fore.LIGHTMAGENTA_EX + tabulate(highscore_list, headers=col_names))
 
@@ -232,15 +231,15 @@ def restart():
     print('No: press n')
     key = getkey()
     resetlevel()
-    while True: 
-        if key == keys.Y:
-             main()
-        elif key == keys.N:
-            sys.exit(0)
-        else: 
-            os.system("clear")
-            print('press y or n to proceed.')
-            restart()
+
+    if key == keys.Y:
+        main()
+    elif key == keys.N:
+     sys.exit(0)
+    else: 
+        os.system("clear")
+        print('press y or n to proceed.')
+        restart()
 
 
 def startgame():
