@@ -237,19 +237,14 @@ def restart():
     if restart reset game.
     """
     print('Would you like to try again?')
-    print('Yes: press y')
-    print('No: press n')
-    key = getkey()
+    input_restart=input('write yes or no en press Enter:')
     resetlevel()
-
-    if key == keys.Y:
+    if input_restart.lower() == "y":
         main()
-    elif key == keys.N:
+    elif input_restart.lower() == "n":
         sys.exit(0)
     else:
-        os.system("clear")
-        print('press y or n to proceed.')
-        restart()
+        print ('enter y or n')
 
 
 def startgame():
