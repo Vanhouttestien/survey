@@ -26,6 +26,10 @@ Nummory is a memory game, in which you have to try to remember as many numbers a
     4. If you have all the numbers correct you
     go a level up and get a extra number to memorize.
 
+## Flow chart
+
+<img src="images/flowchart.jpg" alt="Picture of flowchart" width="800px">
+
 ## Frameworks, Libraries & Programs Used
 - [GitPod](https://gitpod.io/): Gitpod was used as development environment 
 - [GitHub](https://github.com/): Github was used to deploy the site and store it  
@@ -102,12 +106,13 @@ At the end you get the option to restart. Press ‘y’ or ‘n’ to restart th
 <img src="images/pep8.jpg" alt="Picture of pep8 validator results" width="300px">
 
 ### Fixed bugs 
-- The start menu and restart option was not limited. When nothing or another key was clicked the program went to the following line.  
+- The start menu and restart option was not limited. When nothing or another key was clicked the program went to the following line.
+- In the restart function did the get key not always repond when deloyed in Heroku. To solve this it was changed to a input function.  
 
 ### Unfixed bugs
 - when your time is up you still have to click to be able to give your answer. I wasn't able to get the key press cancelled or mocked. So I added a line that you have to press a key to continue.
 - The game is currently not working on mobile devices.  
-- the restart function doesn’t work when caps-log is on. It only recognises the lowercase letters. 
+- Because the restart function uses no a input, the user needs to press Enter 
 
 ## Deployment 
 This site was deployed with the code institute mock terminal for Heroku. 
