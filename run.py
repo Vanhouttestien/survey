@@ -24,7 +24,7 @@ SHEET = GSPREAD_CLIENT.open('nummemory').worksheet('score')
 # global variables
 LEVEL = 1
 NUMBERS = []
-INPIT_NUMBERS = []
+INPUT_NUMBERS = []
 NICKNAME = ""
 
 
@@ -239,14 +239,19 @@ def restart():
     print('Would you like to try again?')
     resetlevel()
     answer = None
-    while answer not in ("yes", "no"): 
-        answer = input("Enter yes or no: ") 
-        if answer.lower() == "yes": 
-             main()
-        elif answer.lower() == "no": 
-             sys.exit(0) 
-        else: 
-        	print("Please enter yes or no.") 
+    """
+    code from
+    https://tutorial.eyehunts.com/
+    """
+    while answer not in ("yes", "no"):
+        answer = input("Enter yes or no: ")
+        if answer.lower() == "yes":
+            main()
+        elif answer.lower() == "no":
+            sys.exit(0)
+        else:
+        	print("Please enter yes or no.")
+
 
 def startgame():
     start_menu()
