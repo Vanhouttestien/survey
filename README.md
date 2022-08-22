@@ -28,17 +28,30 @@ Nummory is a memmory game, in wich you have to try to remember as much numbers a
 - Threading: used for the timer during the game that is cancelable. 
 
 ## Features
-
+### startmenu
+### instructions
+### Random numbers generator
+### question 
+### feedback 
+### highscore 
 
 ## Testing 
+### Manual testing
+- The device was tested in the heroku mock terminal from code institute.
+- Diffent people where asked to test it and report bugs.  
+- invalid input was tested in the different inputboxes.  
 
+### validator testing
+No errors in de pep8online.com validator. 
 
+<img src="images/pep8.jpg" alt="Picture of pep8 validator results" width="300px">
 
 ### Fixed bugs 
 - The start menu and restart option was not limited. When notting or another key was klicked the program went to the following line.  
 
 ### Unfixed bugs
-- when your time is up you still have to click to be able to give your answer. I wasn't able to get the key press canceled or mocked. So I added a line that you have to press a key to continue. 
+- when your time is up you still have to click to be able to give your answer. I wasn't able to get the key press canceled or mocked. So I added a line that you have to press a key to continue.
+- The game is currently not working on mobile devices.  
 
 ## Deployment 
 This site was deployed with the code institute mock terminal for Heroku. 
