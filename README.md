@@ -85,7 +85,7 @@ After the feedback at the end of the game you get the high score list. The high 
  <img src="images/highscore.jpg" alt="Picture of high score list" width="300px">
 
 ### restart menu
-At the end you get the option to restart. Press ‘y’ or ‘n’ to restart the game. 
+At the end you get the option to restart. Enter yes or no to restart the game. 
 
 <img src="images/restart.jpg" alt="Picture of restart menu" width="300px">
 
