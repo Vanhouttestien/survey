@@ -169,9 +169,9 @@ def user_input():
             print(Fore.RED + "You can only use numbers")
         except SyntaxError:
             print(Fore.RED + "did you use the right format?")
-            print(Fore.RED + "you can only use numbers seperated\
-                 by a whitespace")
-            print(Fore.RED + 'ex. 32 5 99 43')
+            print("you can only use numbers)
+            print("and they should be separated by a whitespace")
+            print('ex. 32 5 99 43')
     return guessed_numbers_int, NUMBERS
 
 
