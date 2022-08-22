@@ -250,7 +250,7 @@ def restart():
         elif answer.lower() == "no":
             sys.exit(0)
         else:
-        	print("Please enter yes or no.")
+            print("Please enter yes or no.")
 
 
 def startgame():
